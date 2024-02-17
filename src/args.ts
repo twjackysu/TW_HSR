@@ -1,12 +1,12 @@
 // 出發站: e.g. "左營"
-export const START_STATION = "左營";
+export const START_STATION = "";
 // 抵達站: e.g. "板橋"
-export const DESTINATION_STATION = "板橋";
-// 出發日期: yyyy/MM/dd e.g. "2024/02/20"
-export const DATE = "2024/02/20";
+export const DESTINATION_STATION = "";
+// 出發日期: yyyy/MM/dd e.g. "2020/01/01"
+export const DATE = "";
 
-// 車次: e.g. "0124"
-export const TRAIN_ID = "0124";
+// 車次: e.g. "0000"
+export const TRAIN_ID = "";
 // 全票 e.g. "1"
 export const FULL_FARE_TICKET = "1";
 // 孩童票 e.g. "0"
