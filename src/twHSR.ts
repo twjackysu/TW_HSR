@@ -52,7 +52,7 @@ async function run(args: Args) {
     checkInOption,
     apiUrl,
   } = args;
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto("https://irs.thsrc.com.tw/IMINT/");
