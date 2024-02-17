@@ -34,3 +34,4 @@ jobs:
         EMAIL: ${{ secrets.EMAIL }}
         PHONE: ${{ secrets.PHONE }}
         CHECK_IN_OPTION: ${{ env.CHECK_IN_OPTION }}
+        API_URL: ${{ env.API_URL }}
