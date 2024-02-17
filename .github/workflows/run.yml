@@ -20,3 +20,17 @@ jobs:
 
     - name: Run Playwright script
       run: npx ts-node twHSR.ts
+      env:
+        START_STATION: ${{ env.START_STATION }}
+        DESTINATION_STATION: ${{ env.DESTINATION_STATION }}
+        DATE: ${{ env.DATE }}
+        TRAIN_ID: ${{ env.TRAIN_ID }}
+        FULL_FARE_TICKET: ${{ env.FULL_FARE_TICKET }}
+        CHILD_TICKET: ${{ env.CHILD_TICKET }}
+        CONCESSION_TICKET: ${{ env.CONCESSION_TICKET }}
+        SENIOR_TICKET: ${{ env.SENIOR_TICKET }}
+        STUDENT_TICKET: ${{ env.STUDENT_TICKET }}
+        ID: ${{ secrets.ID }}
+        EMAIL: ${{ secrets.EMAIL }}
+        PHONE: ${{ secrets.PHONE }}
+        CHECK_IN_OPTION: ${{ env.CHECK_IN_OPTION }}
