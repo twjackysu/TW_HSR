@@ -18,6 +18,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Install Playwright browsers
+      run: npx playwright install
+      
     - name: Run Playwright script
       run: npx ts-node src/twHSR.ts
       env:
