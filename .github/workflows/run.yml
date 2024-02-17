@@ -19,7 +19,7 @@ jobs:
       run: npm ci
 
     - name: Run Playwright script
-      run: npx ts-node twHSR.ts
+      run: npx ts-node src/twHSR.ts
       env:
         START_STATION: ${{ env.START_STATION }}
         DESTINATION_STATION: ${{ env.DESTINATION_STATION }}
