@@ -6,6 +6,8 @@ This project is a script for booking tickets on the Taiwan High Speed Rail.
 
 This script is for research and reference purposes only. The author is not responsible for any misuse of this script or any violation of terms of service of the Taiwan High Speed Rail website. Please use this script responsibly and ethically.
 
+**Note:** The author will not provide any captcha-solving API. Using such APIs for ticket booking may violate laws or terms of service. Any consequences of such actions are the sole responsibility of the user.
+
 ## Installation
 
 First, install the necessary dependencies:
@@ -34,3 +36,6 @@ node src/twHSR.js
 ## Done
 
 That's it! Your ticket booking should now be processed.
+
+## Demo
+[![IMAGE ALT TEXT](https://img.youtube.com/vi/CNtKH8V6xFM/0.jpg)](https://youtu.be/CNtKH8V6xFM)
