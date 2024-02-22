@@ -15,14 +15,24 @@ import {
   PHONE,
   CHECK_IN_OPTION,
   API_URL,
+  TICKET_TYPE,
+  CAR_TYPE,
+  SEAT_PREFERENCE,
+  RETURN_TRAIN_ID,
+  RETURN_DATE,
 } from "./args";
 import { getCaptchaFromApi } from "./getCaptcha";
 
 interface Args {
+  ticketType?: string;
+  carType?: string;
+  seatPreference?: string;
   startStation?: string;
   destinationStation?: string;
   date?: string;
+  returnDate?: string;
   trainId?: string;
+  returnTrainId?: string;
   fullFareTicket?: string;
   childTicket?: string;
   concessionTicket?: string;
@@ -37,6 +47,9 @@ interface Args {
 
 async function run(args: Args) {
   const {
+    ticketType,
+    carType,
+    seatPreference,
     startStation,
     destinationStation,
     date,
@@ -51,11 +64,27 @@ async function run(args: Args) {
     phone,
     checkInOption,
     apiUrl,
+    returnDate,
+    returnTrainId,
   } = args;
   const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();
-  await page.goto("https://irs.thsrc.com.tw/IMINT/");
+  await page.goto("https://irs.thsrc.com.tw/IMINT/?locale=tw");
+
+  await page.waitForTimeout(5000);
+  // 票種
+  await page.selectOption("#BookingS1Form_tripCon_typesoftrip", {
+    label: ticketType ?? TICKET_TYPE,
+  });
+  // 車廂種類
+  await page.selectOption("#BookingS1Form_trainCon_trainRadioGroup", {
+    label: carType ?? CAR_TYPE,
+  });
+  // 座位偏好
+  await page.selectOption("#BookingS1Form_seatCon_seatRadioGroup", {
+    label: seatPreference ?? SEAT_PREFERENCE,
+  });
 
   // 出發站
   await page.selectOption('select[name="selectStartStation"]', {
@@ -76,13 +105,28 @@ async function run(args: Args) {
     [DATE ?? date]
   );
 
-  // 點擊 車次
+  // 回程日期
+  await page.evaluate(
+    ([date]) => {
+      const input = document.querySelector('input[name="backTimeInputField"]');
+      input?.setAttribute("value", date);
+    },
+    [RETURN_DATE ?? returnDate]
+  );
+
+  // 點擊搜尋方式 車次
   await page.click(
     'input[name="bookingMethod"][data-target="search-by-trainNo"]'
   );
 
-  // 輸入車次
+  // 輸入出發車次
   await page.fill('input[name="toTrainIDInputField"]', trainId ?? TRAIN_ID);
+
+  // 輸入回程車次
+  await page.fill(
+    'input[name="backTrainIDInputField"]',
+    returnTrainId ?? RETURN_TRAIN_ID
+  );
 
   // 全票
   await page.selectOption('select[name="ticketPanel:rows:0:ticketAmount"]', {
