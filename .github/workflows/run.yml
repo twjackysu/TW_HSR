@@ -10,6 +10,18 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v4
       
+    - name: Test connectivity to Google
+      run: |
+        echo "Testing connection to Google"
+        curl -v https://www.google.com
+        echo "Google test completed"
+        
+    - name: Test connectivity to the target website
+      run: |
+        echo "Testing connection to the target website"
+        curl -v https://irs.thsrc.com.tw/IMINT/?locale=tw
+        echo "Target website test completed"
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -20,10 +32,6 @@ jobs:
 
     - name: Install Playwright Chromium browser
       run: npx playwright install chromium
-      
-    - name: Test network connectivity
-      run: |
-        curl -I https://irs.thsrc.com.tw/IMINT/?locale=tw
       
     - name: Run with xvfb
       run: |
