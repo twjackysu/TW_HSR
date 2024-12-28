@@ -102,7 +102,7 @@ async function run(args: Args) {
       const input = document.querySelector('input[name="toTimeInputField"]');
       input?.setAttribute("value", date);
     },
-    [DATE ?? date]
+    [date ?? DATE]
   );
 
   // 回程日期
@@ -111,7 +111,7 @@ async function run(args: Args) {
       const input = document.querySelector('input[name="backTimeInputField"]');
       input?.setAttribute("value", date);
     },
-    [RETURN_DATE ?? returnDate]
+    [returnDate ?? RETURN_DATE]
   );
 
   // 點擊搜尋方式 車次
@@ -238,7 +238,9 @@ run({
   startStation: process.env.START_STATION,
   destinationStation: process.env.DESTINATION_STATION,
   date: process.env.DATE,
+  returnDate: process.env.RETURN_DATE,
   trainId: process.env.TRAIN_ID,
+  returnTrainId: process.env.RETURN_TRAIN_ID,
   fullFareTicket: process.env.FULL_FARE_TICKET,
   childTicket: process.env.CHILD_TICKET,
   concessionTicket: process.env.CONCESSION_TICKET,
