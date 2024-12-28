@@ -70,6 +70,18 @@ async function run(args: Args) {
   const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();
+  
+  // Add the console event listener
+  page.on('console', (msg) => {
+    console.log(msg.text());
+  });
+
+  // Add the dialog event listener to dismiss any dialogs
+  page.on('dialog', dialog => {
+    console.log('Dialog message:', dialog.message());
+    dialog.dismiss(); // Automatically dismiss the dialog
+  });
+  
   await page.goto("https://irs.thsrc.com.tw/IMINT/?locale=tw");
 
   await page.waitForTimeout(5000);
