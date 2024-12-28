@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Check out repository code
       uses: actions/checkout@v4
-
+      
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -20,6 +20,10 @@ jobs:
 
     - name: Install Playwright Chromium browser
       run: npx playwright install chromium
+      
+    - name: Test network connectivity
+      run: |
+        curl -I https://irs.thsrc.com.tw/IMINT/?locale=tw
       
     - name: Run with xvfb
       run: |
