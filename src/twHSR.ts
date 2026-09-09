@@ -45,6 +45,16 @@ interface Args {
   apiUrl?: string;
 }
 
+// 讀取環境變數，並把「沒有內容」的值視為未設定。
+// GitHub Actions 在 workflow 的 env 區塊引用不存在的變數時，會展開成空字串，
+// 於是 process.env.XXX 會是 ""；因為 "" 不是 null/undefined，
+// run() 裡的 `args.xxx ?? DEFAULT` 就不會退回 args.ts 的預設值，
+// 導致 selectOption / fill 收到空字串而失敗。
+function readEnv(name: string): string | undefined {
+  const value = process.env[name]?.trim();
+  return value ? value : undefined;
+}
+
 async function run(args: Args) {
   const {
     ticketType,
@@ -247,20 +257,20 @@ async function run(args: Args) {
 }
 
 run({
-  startStation: process.env.START_STATION,
-  destinationStation: process.env.DESTINATION_STATION,
-  date: process.env.DATE,
-  returnDate: process.env.RETURN_DATE,
-  trainId: process.env.TRAIN_ID,
-  returnTrainId: process.env.RETURN_TRAIN_ID,
-  fullFareTicket: process.env.FULL_FARE_TICKET,
-  childTicket: process.env.CHILD_TICKET,
-  concessionTicket: process.env.CONCESSION_TICKET,
-  seniorTicket: process.env.SENIOR_TICKET,
-  studentTicket: process.env.STUDENT_TICKET,
-  id: process.env.ID,
-  email: process.env.EMAIL,
-  phone: process.env.PHONE,
-  checkInOption: process.env.CHECK_IN_OPTION,
-  apiUrl: process.env.API_URL,
+  startStation: readEnv("START_STATION"),
+  destinationStation: readEnv("DESTINATION_STATION"),
+  date: readEnv("DATE"),
+  returnDate: readEnv("RETURN_DATE"),
+  trainId: readEnv("TRAIN_ID"),
+  returnTrainId: readEnv("RETURN_TRAIN_ID"),
+  fullFareTicket: readEnv("FULL_FARE_TICKET"),
+  childTicket: readEnv("CHILD_TICKET"),
+  concessionTicket: readEnv("CONCESSION_TICKET"),
+  seniorTicket: readEnv("SENIOR_TICKET"),
+  studentTicket: readEnv("STUDENT_TICKET"),
+  id: readEnv("ID"),
+  email: readEnv("EMAIL"),
+  phone: readEnv("PHONE"),
+  checkInOption: readEnv("CHECK_IN_OPTION"),
+  apiUrl: readEnv("API_URL"),
 }).catch(console.error);
